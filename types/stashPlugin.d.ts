@@ -98,6 +98,7 @@ interface StashPluginComponents {
   "PerformerDetailsPanel.DetailGroup": (
     props: IPerformerDetailsPanelDetailGroup
   ) => React.JSX.Element;
+  PerformerCard: (props: any) => React.JSX.Element;
   SceneCard: (props: ISceneCardProps) => React.JSX.Element;
 }
 
@@ -122,6 +123,14 @@ interface PatchableComponentsBefore {
 }
 
 interface PatchableComponentsInstead {
+  (
+    component: "PerformerCard",
+    fn: (
+      props: any,
+      _: object,
+      Original: React.JSX
+    ) => React.JSX.Element[]
+  ): void;
   (
     component: "PerformerDetailsPanel.DetailGroup",
     fn: (
