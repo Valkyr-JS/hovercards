@@ -98,7 +98,8 @@ interface StashPluginComponents {
   "PerformerDetailsPanel.DetailGroup": (
     props: IPerformerDetailsPanelDetailGroup
   ) => React.JSX.Element;
-  PerformerCard: (props: any) => React.JSX.Element;
+  PerformerCard: (props: IPerformerCardProps) => React.JSX.Element;
+  "PerformerCard.Details": (props: IPerformerCardProps) => React.JSX.Element;
   SceneCard: (props: ISceneCardProps) => React.JSX.Element;
 }
 
@@ -126,7 +127,15 @@ interface PatchableComponentsInstead {
   (
     component: "PerformerCard",
     fn: (
-      props: any,
+      props: IPerformerCardProps,
+      _: object,
+      Original: React.JSX
+    ) => React.JSX.Element[]
+  ): void;
+  (
+    component: "PerformerCard.Details",
+    fn: (
+      props: IPerformerCardProps,
       _: object,
       Original: React.JSX
     ) => React.JSX.Element[]
@@ -196,6 +205,30 @@ interface IHoverPopover extends React.PropsWithChildren {
   onOpen?: () => void;
   onClose?: () => void;
   target?: React.RefObject<HTMLElement>;
+}
+
+interface ILabeledId {
+  id: string;
+  label: string;
+}
+
+interface IPerformerCardProps {
+  performer: Performer;
+  containerWidth?: number;
+  ageFromDate?: string;
+  selecting?: boolean;
+  selected?: boolean;
+  zoomIndex?: number;
+  onSelectedChanged?: (selected: boolean, shiftKey: boolean) => void;
+  extraCriteria?: IPerformerCardExtraCriteria;
+}
+
+export interface IPerformerCardExtraCriteria {
+  scenes?: Scene[];
+  images?: Image[];
+  galleries?: Gallery[];
+  groups?: Group[];
+  performer?: ILabeledId;
 }
 
 interface ISceneCardProps {
