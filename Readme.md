@@ -87,3 +87,24 @@ Once you have the URL, remove the domain name to get the absolute path. This can
 
 ![image](https://github.com/user-attachments/assets/12acdb84-456f-49e3-9495-a8afdb0c7a7a)
 
+### Local video files - bare metal install (untested)
+
+To add a local video file, simply add the full path of the video file as the field value.
+
+![image](https://github.com/user-attachments/assets/aae32f03-4393-4195-9a5e-6e4fdb6836fe)
+
+This method is currently untested - [please raise an issue on GitHub if it doesn't work](https://github.com/Valkyr-JS/hovercards/issues).
+
+### Local video files - Docker
+
+In Docker, local files need to be in a path accessible to the container. There should be a variety of methods for doing this, but this is the recommended method.
+
+Open the folder where your plugins are installed and navigate to the `hovercards` folder. Create a new folder inside it - this is where your videos will be stored. The folder name doesn't matter, but in this example I have called it `previews`.
+
+Take the path to the file from the `previews` folder, and add `/plugin/hovercards/assets/` in front of it. This is how Stash maps plugin paths. This path can then be added as the field value.
+
+![image](https://github.com/user-attachments/assets/dbb51e7c-25a2-4e87-87c1-14e476dcaa80)
+
+### Externally hosted videos
+
+Technically, these should be supported. The plugin will attempt to find any path entered into the field value. However I regularly ran into CORS issues. If you have any suggestions, feel free to contact me on the [Stash Discord plugins channel](https://discord.com/channels/559159668438728723/742220889017417738) or [raise an issue on GitHub](https://github.com/Valkyr-JS/hovercards/issues).
