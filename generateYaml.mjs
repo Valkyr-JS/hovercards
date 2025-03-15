@@ -20,7 +20,7 @@ fs.readdir('dist/', (err, files) => {
 });
 
 const json = {
-  name: pkg.default.name,
+  name: "Hover Cards",
   description: pkg.default.description,
   url: pkg.default.homepage,
   version: pkg.default.version,
