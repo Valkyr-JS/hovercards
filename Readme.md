@@ -37,7 +37,7 @@ Add a field with the name `hovercard_image`. The contents of the value field dep
 
 ### Stash images
 
-To add an image that is in your Stash library, add the Stash ID of the image you want to use in the `hovercard_image` value field. The image Stash ID can be found by navigating to the image in Stash and taking the number from the end of the URL; for example, for an image at http://localhost:9999/images/3 the Stash ID would be 3.
+To add an image that is in your Stash library, add the Stash ID of the image you want to use in the `hovercard_image` value field. The image ID can be found by navigating to the image in Stash and taking the number after `images/`; for example, for an image at http://localhost:9999/images/3 the Stash ID would be 3.
 
 ![image](https://github.com/user-attachments/assets/9f07f7fb-bf42-42c7-a9a3-4110deb5370e)
 
@@ -53,3 +53,36 @@ To add an image from outside of your library, such as from a different website, 
 
 Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display your chosen image when you hover over it.
 
+## Hover videos
+
+To add a hover video to a performer, navigate to the performer's page and click "Edit". Scroll down to "Custom Fields" near the bottom of the page and click it to start adding fields.
+
+Add a field with the name `hovercard_video`. The contents of the value field depend on whether you want to add a video from your Stash library, or a local video file.
+
+### Stash scene previews
+
+To add the preview video of a scene that is in your Stash library, add the Stash ID of the scene you want to use in the `hovercard_video` value field. The scene ID can be found by navigating to the scene in Stash and taking the number after `scenes/`; for example, for a scene at http://localhost:9999/scenes/5 the Stash ID would be 5.
+
+![image](https://github.com/user-attachments/assets/8a705596-cc98-4c47-a689-f9c3ce20fcc4)
+
+Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display your chosen scene preview when you hover over it.
+
+The Stash ID of the scene will always be a number. Any value that is not a number is treated as a local file path.
+
+### Stash scene streams
+
+If you want to play a whole scene on hover, follow the instructions above for "Stash scene previews". Then go to the plugin settings page and enable the "Prefer full videos" setting.
+
+![image](https://github.com/user-attachments/assets/4711cf85-d9b9-4cd0-bb8f-43481f7bfcb7)
+
+This is a global setting, so all performers would use the scene stream instead of the preview. If you only want to change this for specific performers, leave the "Prefer full videos" setting disabled and enter `/scene/X/stream` in the value field instead, where `X` is the scene ID.
+
+![image](https://github.com/user-attachments/assets/ab357e2f-5586-4999-882f-eb4c8b4a02a8)
+
+### Stash scene markers
+
+To show a Stash scene marker preview on hover, you need its URL. This may require a little digging, but only a little. Find the marker you want to use (make sure it's been generated first) and locate the URL either via developer tools, right-clicking on the video and selecting "Copy video address", or whatever way you prefer. The URL should look something like `http://localhost:9999/scene/X/scene_marker/Y/stream`, where `X` is the scene ID and `Y` is the marker ID.
+
+Once you have the URL, remove the domain name to get the absolute path. This can then be used as the field value.
+
+![image](https://github.com/user-attachments/assets/12acdb84-456f-49e3-9495-a8afdb0c7a7a)
