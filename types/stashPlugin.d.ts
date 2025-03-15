@@ -100,6 +100,7 @@ interface StashPluginComponents {
   ) => React.JSX.Element;
   PerformerCard: (props: IPerformerCardProps) => React.JSX.Element;
   "PerformerCard.Details": (props: IPerformerCardProps) => React.JSX.Element;
+  "PerformerCard.Image": (props: IPerformerCardProps) => React.JSX.Element;
   "PerformerCard.Title": (props: IPerformerCardProps) => React.JSX.Element;
   SceneCard: (props: ISceneCardProps) => React.JSX.Element;
 }
@@ -135,6 +136,14 @@ interface PatchableComponentsInstead {
   ): void;
   (
     component: "PerformerCard.Details",
+    fn: (
+      props: IPerformerCardProps,
+      _: object,
+      Original: React.JSX
+    ) => React.JSX.Element[]
+  ): void;
+  (
+    component: "PerformerCard.Image",
     fn: (
       props: IPerformerCardProps,
       _: object,

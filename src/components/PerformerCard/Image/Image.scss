@@ -1,0 +1,22 @@
+.valkyr-performer-card {
+  .image-wrapper {
+    display: grid;
+    grid-template-columns: [start] auto [end];
+    grid-template-rows: [top] auto [bottom];
+  }
+
+  .main-image,
+  .hover-image {
+    grid-column: start/end;
+    grid-row: top/bottom;
+  }
+
+  .hover-image {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 100%;
+    }
+  }
+}

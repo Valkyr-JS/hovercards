@@ -1,20 +1,19 @@
 import React from "react";
-import {
-  PerformerCardDetails,
-  PerformerCardTitle,
-} from "@components/PerformerCard";
+import { default as cx } from "classnames";
+import { PerformerCardImage } from "@components/PerformerCard";
 import "./styles.scss";
 
 const { PluginApi } = window;
 
 PluginApi.patch.instead("PerformerCard", function (props, _, Original) {
-  return [<Original {...props} />];
+  const wrapperClasses = cx("valkyr-performer-card");
+  return [
+    <div className={wrapperClasses}>
+      <Original {...props} />
+    </div>,
+  ];
 });
 
-PluginApi.patch.instead("PerformerCard.Details", function (props) {
-  return [<PerformerCardDetails {...props} />];
-});
-
-PluginApi.patch.instead("PerformerCard.Title", function (props) {
-  return [<PerformerCardTitle {...props} />];
+PluginApi.patch.instead("PerformerCard.Image", function (props) {
+  return [<PerformerCardImage {...props} />];
 });
