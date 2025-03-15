@@ -1,4 +1,5 @@
 .valkyr-performer-card {
+    position: relative;
   .image-wrapper {
     display: grid;
     grid-template-columns: [start] auto [end];
@@ -6,17 +7,29 @@
   }
 
   .main-image,
-  .hover-image {
+  .hover-image,
+  .hover-video {
     grid-column: start/end;
     grid-row: top/bottom;
   }
 
-  .hover-image {
+  .hover-image,
+  .hover-video {
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
 
     &:hover {
       opacity: 100%;
     }
+  }
+
+  .hover-video {
+    transition: top 0s;
+    transition-delay: 0s;
+
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
   }
 }

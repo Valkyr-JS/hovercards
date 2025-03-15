@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IPerformerCardPropsExtended } from "@pluginTypes/valkyrperformercard";
 import "./Image.scss";
 
 const Image: React.FC<IPerformerCardPropsExtended> = ({ performer }) => {
-  console.log(performer);
-
-  const hoverImage = performer.custom_fields.vpc_hover ? (
-    <HoverImage vpc_hover={performer.custom_fields.vpc_hover} />
-  ) : null;
+  const { vpc_hover, vpc_video } = performer.custom_fields;
+  const hoverImage = vpc_hover ? <HoverImage vpc_hover={vpc_hover} /> : null;
+  const hoverVideo = vpc_video ? <HoverVideo vpc_video={vpc_video} /> : null;
 
   return (
     <div className="image-wrapper">
@@ -17,7 +15,7 @@ const Image: React.FC<IPerformerCardPropsExtended> = ({ performer }) => {
         alt={performer.name ?? ""}
         src={performer.image_path ?? ""}
       />
-      {hoverImage}
+      {hoverVideo ?? hoverImage}
     </div>
   );
 };
@@ -40,6 +38,51 @@ const HoverImage: React.FC<IHoverImageProps> = ({ vpc_hover }) => {
     <img
       loading="lazy"
       className="performer-card-image hover-image"
+      src={src}
+    />
+  );
+};
+
+interface IHoverVideoProps {
+  soundActive?: boolean;
+  vpc_video: string | number;
+}
+
+const HoverVideo: React.FC<IHoverVideoProps> = ({
+  vpc_video,
+  soundActive = false,
+}) => {
+  const videoEl = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoEl?.current?.volume)
+      videoEl.current.volume = soundActive ? 0.05 : 0;
+  }, [soundActive]);
+
+  // If the hover value is a number, it is the Stash image ID. Else, it is the
+  // URL.
+  const src =
+    typeof vpc_video === "number"
+      ? "/scene/" + vpc_video + "/stream"
+      : vpc_video;
+
+  const mouseOverHandler: React.MouseEventHandler<HTMLVideoElement> = (e) =>
+    (e.target as HTMLVideoElement).play();
+
+  const mouseOutHandler: React.MouseEventHandler<HTMLVideoElement> = (e) =>
+    (e.target as HTMLVideoElement).pause();
+
+  return (
+    <video
+      className="hover-video"
+      disableRemotePlayback
+      playsInline
+      muted={!soundActive}
+      loop
+      preload="none"
+      onMouseOver={mouseOverHandler}
+      onMouseOut={mouseOutHandler}
+      ref={videoEl}
       src={src}
     />
   );
