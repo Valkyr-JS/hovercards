@@ -1,7 +1,7 @@
 {
-  "enablePlugin": {
-    "displayName": "Enable the plugin",
-    "description": "Toggle the plugin on and off.",
+  "preferFullVideos": {
+    "displayName": "Prefer full videos",
+    "description": "By default, setting a Stash scene ID uses the scene preview. Enabling this option uses the full video stream instead.",
     "type": "BOOLEAN"
   }
 }
