@@ -74,7 +74,7 @@ const HoverVideo: React.FC<IHoverVideoProps> = ({
 
   return (
     <video
-      className="hover-video"
+      className="performer-card-image hover-video"
       disableRemotePlayback
       playsInline
       muted={!soundActive}

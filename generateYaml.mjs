@@ -25,6 +25,9 @@ const json = {
   url: pkg.default.homepage,
   version: pkg.default.version,
   ui: {
+    assets: {
+      "/": "."
+    },
     javascript: jsFiles,
     css: cssFiles
   },
