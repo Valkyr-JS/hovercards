@@ -16,6 +16,7 @@ interface IPerformerCustomFields {
 }
 
 interface IPerformerCardPropsExtended extends IPerformerCardProps {
+  config?: IhovercardsConfig;
   performer: Performer & {
     custom_fields: IPerformerCustomFields;
   };

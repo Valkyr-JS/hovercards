@@ -23,6 +23,7 @@ PluginApi.patch.instead("PerformerCard.Image", function (props, _, Original) {
   if (configLoaded) {
     const extendedProps: IPerformerCardPropsExtended = {
       ...props,
+      config: qConfig.data.configuration.plugins.hovercards,
       stashSettings: qConfig.data.configuration,
     };
 

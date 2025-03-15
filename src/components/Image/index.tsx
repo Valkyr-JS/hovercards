@@ -15,6 +15,7 @@ const Image: React.FC<IPerformerCardPropsExtended> = ({
   const hoverVideo = hovercard_video ? (
     <HoverVideo
       hovercard_video={hovercard_video}
+      preferFullVideos={props.config?.preferFullVideos ?? false}
       soundActive={props.stashSettings?.interface?.soundOnPreview ?? false}
     />
   ) : null;
@@ -56,13 +57,15 @@ const HoverImage: React.FC<IHoverImageProps> = ({ hovercard_image }) => {
 };
 
 interface IHoverVideoProps {
-  soundActive?: boolean;
   hovercard_video: string | number;
+  preferFullVideos: boolean;
+  soundActive: boolean;
 }
 
 const HoverVideo: React.FC<IHoverVideoProps> = ({
   hovercard_video,
   soundActive,
+  ...props
 }) => {
   const videoEl = useRef<HTMLVideoElement>(null);
 
@@ -71,11 +74,15 @@ const HoverVideo: React.FC<IHoverVideoProps> = ({
       videoEl.current.volume = soundActive ? 0.05 : 0;
   }, [soundActive]);
 
+  // Check if the user has set to use the full video stream instead of the
+  // preview.
+  const vidType = props.preferFullVideos ? "/stream" : "/preview";
+
   // If the hover value is a number, it is the Stash image ID. Else, it is the
   // URL.
   const src =
     typeof hovercard_video === "number"
-      ? "/scene/" + hovercard_video + "/preview"
+      ? "/scene/" + hovercard_video + vidType
       : hovercard_video;
 
   const mouseOverHandler: React.MouseEventHandler<HTMLVideoElement> = (e) =>
