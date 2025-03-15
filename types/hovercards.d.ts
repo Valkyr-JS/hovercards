@@ -19,4 +19,5 @@ interface IPerformerCardPropsExtended extends IPerformerCardProps {
   performer: Performer & {
     custom_fields: IPerformerCustomFields;
   };
+  stashSettings: ConfigResult;
 }

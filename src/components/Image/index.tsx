@@ -2,13 +2,21 @@ import React, { useEffect, useRef } from "react";
 import { IPerformerCardPropsExtended } from "@pluginTypes/hovercards";
 import "./Image.scss";
 
-const Image: React.FC<IPerformerCardPropsExtended> = ({ performer }) => {
+const Image: React.FC<IPerformerCardPropsExtended> = ({
+  performer,
+  ...props
+}) => {
   const { hovercard_image, hovercard_video } = performer.custom_fields;
+
   const hoverImage = hovercard_image ? (
     <HoverImage hovercard_image={hovercard_image} />
   ) : null;
+
   const hoverVideo = hovercard_video ? (
-    <HoverVideo hovercard_video={hovercard_video} />
+    <HoverVideo
+      hovercard_video={hovercard_video}
+      soundActive={props.stashSettings?.interface?.soundOnPreview ?? false}
+    />
   ) : null;
 
   return (
@@ -54,7 +62,7 @@ interface IHoverVideoProps {
 
 const HoverVideo: React.FC<IHoverVideoProps> = ({
   hovercard_video,
-  soundActive = false,
+  soundActive,
 }) => {
   const videoEl = useRef<HTMLVideoElement>(null);
 
