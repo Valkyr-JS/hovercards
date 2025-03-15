@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { IPerformerCardPropsExtended } from "@pluginTypes/valkyrperformercard";
+import { IPerformerCardPropsExtended } from "@pluginTypes/hovercards";
 import "./Image.scss";
 
 const Image: React.FC<IPerformerCardPropsExtended> = ({ performer }) => {

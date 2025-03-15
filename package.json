@@ -1,7 +1,7 @@
 {
-  "name": "valkyrperformercards",
+  "name": "hovercards",
   "version": "0.1.0",
-  "description": "A rework of the performer cards for Stash.",
+  "description": "Allows showing a different image or video when hovering over certain card types in Stash.",
   "main": "./src/main.ts",
   "type": "commonjs",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Valkyr-JS/valkyrperformercards.git"
+    "url": "git+https://github.com/Valkyr-JS/hovercards.git"
   },
   "author": "Valkyr-JS",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Valkyr-JS/valkyrperformercards/issues"
+    "url": "https://github.com/Valkyr-JS/hovercards/issues"
   },
-  "homepage": "https://github.com/Valkyr-JS/valkyrperformercards#readme",
+  "homepage": "https://github.com/Valkyr-JS/hovercards#readme",
   "peerDependencies": {
     "@apollo/client": "^3.13.4",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",

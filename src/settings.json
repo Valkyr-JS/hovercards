@@ -1,7 +1,7 @@
 {
-  "enablePlugin": {
-    "displayName": "Enable the plugin",
-    "description": "Toggle the plugin on and off.",
+  "preferFullVideos": {
+    "displayName": "Prefer full videos",
+    "description": "By default, a hover card video uses the video preview. Enabling this option makes hover card videos use the full video instead.",
     "type": "BOOLEAN"
   }
 }
