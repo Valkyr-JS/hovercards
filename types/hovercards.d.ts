@@ -9,7 +9,10 @@ interface IhovercardsConfig {
 }
 
 interface IPerformerCustomFields {
-  vpc_hover?: string | number;
+  /** Either the Stash ID number or the URL string for the hover image. */
+  hovercard_image?: string | number;
+  /** Either the Stash ID number or the URL string for the hover video. */
+  hovercard_video?: string | number;
 }
 
 interface IPerformerCardPropsExtended extends IPerformerCardProps {

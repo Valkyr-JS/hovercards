@@ -3,9 +3,13 @@ import { IPerformerCardPropsExtended } from "@pluginTypes/hovercards";
 import "./Image.scss";
 
 const Image: React.FC<IPerformerCardPropsExtended> = ({ performer }) => {
-  const { vpc_hover, vpc_video } = performer.custom_fields;
-  const hoverImage = vpc_hover ? <HoverImage vpc_hover={vpc_hover} /> : null;
-  const hoverVideo = vpc_video ? <HoverVideo vpc_video={vpc_video} /> : null;
+  const { hovercard_image, hovercard_video } = performer.custom_fields;
+  const hoverImage = hovercard_image ? (
+    <HoverImage hovercard_image={hovercard_image} />
+  ) : null;
+  const hoverVideo = hovercard_video ? (
+    <HoverVideo hovercard_video={hovercard_video} />
+  ) : null;
 
   return (
     <div className="image-wrapper">
@@ -23,16 +27,16 @@ const Image: React.FC<IPerformerCardPropsExtended> = ({ performer }) => {
 export default Image;
 
 interface IHoverImageProps {
-  vpc_hover: string | number;
+  hovercard_image: string | number;
 }
 
-const HoverImage: React.FC<IHoverImageProps> = ({ vpc_hover }) => {
+const HoverImage: React.FC<IHoverImageProps> = ({ hovercard_image }) => {
   // If the hover value is a number, it is the Stash image ID. Else, it is the
   // URL.
   const src =
-    typeof vpc_hover === "number"
-      ? "/image/" + vpc_hover + "/image"
-      : vpc_hover;
+    typeof hovercard_image === "number"
+      ? "/image/" + hovercard_image + "/image"
+      : hovercard_image;
 
   return (
     <img
@@ -45,11 +49,11 @@ const HoverImage: React.FC<IHoverImageProps> = ({ vpc_hover }) => {
 
 interface IHoverVideoProps {
   soundActive?: boolean;
-  vpc_video: string | number;
+  hovercard_video: string | number;
 }
 
 const HoverVideo: React.FC<IHoverVideoProps> = ({
-  vpc_video,
+  hovercard_video,
   soundActive = false,
 }) => {
   const videoEl = useRef<HTMLVideoElement>(null);
@@ -62,9 +66,9 @@ const HoverVideo: React.FC<IHoverVideoProps> = ({
   // If the hover value is a number, it is the Stash image ID. Else, it is the
   // URL.
   const src =
-    typeof vpc_video === "number"
-      ? "/scene/" + vpc_video + "/preview"
-      : vpc_video;
+    typeof hovercard_video === "number"
+      ? "/scene/" + hovercard_video + "/preview"
+      : hovercard_video;
 
   const mouseOverHandler: React.MouseEventHandler<HTMLVideoElement> = (e) =>
     (e.target as HTMLVideoElement).play();
