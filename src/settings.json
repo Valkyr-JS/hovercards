@@ -1,7 +1,7 @@
 {
   "preferFullVideos": {
     "displayName": "Prefer full videos",
-    "description": "By default, a hover card video uses the video preview. Enabling this option makes hover card videos use the full video instead.",
+    "description": "By default, setting a Stash scene ID uses the scene preview. Enabling this option uses the full video stream instead.",
     "type": "BOOLEAN"
   }
 }

@@ -3,8 +3,8 @@ import { IPerformerCardProps } from "./stashPlugin";
 /** Types for your plugin config. Settings are undefined by default. Data should
  * match the settings in your `/src/source.yml` file. */
 interface IhovercardsConfig {
-  /** By default, a hover card video uses the video preview. Enabling this
-   * option makes hover card videos use the full video instead. */
+  /** By default, setting a Stash scene ID uses the scene preview. Enabling this
+   * option uses the full video stream instead. */
   preferFullVideos?: boolean;
 }
 
