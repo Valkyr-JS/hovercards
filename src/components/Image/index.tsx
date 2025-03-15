@@ -63,7 +63,7 @@ const HoverVideo: React.FC<IHoverVideoProps> = ({
   // URL.
   const src =
     typeof vpc_video === "number"
-      ? "/scene/" + vpc_video + "/stream"
+      ? "/scene/" + vpc_video + "/preview"
       : vpc_video;
 
   const mouseOverHandler: React.MouseEventHandler<HTMLVideoElement> = (e) =>
