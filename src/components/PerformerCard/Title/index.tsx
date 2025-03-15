@@ -7,7 +7,7 @@ const Title: React.FC<IPerformerCardPropsExtended> = ({ performer }) => {
       <div className="performer-name">{performer.name}</div>
       {performer.disambiguation && (
         <div className="performer-disambiguation">
-          {` (${performer.disambiguation})`}
+          {performer.disambiguation}
         </div>
       )}
     </div>
