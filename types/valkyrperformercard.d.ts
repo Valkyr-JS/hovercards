@@ -6,4 +6,12 @@ interface MyPluginConfig {
   enablePlugin?: boolean;
 }
 
-interface IPerformerCardPropsExtended extends IPerformerCardProps {}
+interface IPerformerCustomFields {
+  vpc_hover?: string | number;
+}
+
+interface IPerformerCardPropsExtended extends IPerformerCardProps {
+  performer: Performer & {
+    custom_fields: IPerformerCustomFields;
+  };
+}
