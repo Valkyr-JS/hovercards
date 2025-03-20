@@ -1,6 +1,6 @@
 {
   "name": "hovercards",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Allows setting an alternative image or video when hovering over performer cards in Stash.",
   "main": "./src/main.ts",
   "type": "commonjs",
