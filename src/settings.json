@@ -1,7 +1,12 @@
 {
   "preferFullVideos": {
     "displayName": "Prefer full videos",
-    "description": "By default, setting a Stash scene ID uses the scene preview. Enabling this option uses the full video stream instead.",
+    "description": "By default, setting a Stash scene ID uses the Stash-generated scene preview. Enabling this option uses the full video stream instead.",
+    "type": "BOOLEAN"
+  },
+  "preferOriginalImage": {
+    "displayName": "Prefer original images",
+    "description": "By default, setting a Stash image ID uses the Stash-generated image thumbnail. Enabling this option uses the original image instead.",
     "type": "BOOLEAN"
   }
 }

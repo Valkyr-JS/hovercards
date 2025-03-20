@@ -27,8 +27,6 @@ PluginApi.patch.instead("PerformerCard.Image", function (props, _, Original) {
       stashSettings: qConfig.data.configuration,
     };
 
-    console.log("extendedProps", extendedProps);
-
     return [<PerformerCardImage {...extendedProps} />];
   }
 
