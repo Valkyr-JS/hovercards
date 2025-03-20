@@ -9,7 +9,10 @@ const Image: React.FC<IPerformerCardPropsExtended> = ({
   const { hovercard_image, hovercard_video } = performer.custom_fields;
 
   const hoverImage = hovercard_image ? (
-    <HoverImage hovercard_image={hovercard_image} />
+    <HoverImage
+      hovercard_image={hovercard_image}
+      preferOriginalImage={props.config?.preferOriginalImage ?? false}
+    />
   ) : null;
 
   const hoverVideo = hovercard_video ? (
@@ -37,14 +40,21 @@ export default Image;
 
 interface IHoverImageProps {
   hovercard_image: string | number;
+  preferOriginalImage: boolean;
 }
 
-const HoverImage: React.FC<IHoverImageProps> = ({ hovercard_image }) => {
+const HoverImage: React.FC<IHoverImageProps> = ({
+  hovercard_image,
+  ...props
+}) => {
+  // Check if the user has set to use the original image instead of the preview.
+  const imgType = props.preferOriginalImage ? "/image" : "/thumbnail";
+
   // If the hover value is a number, it is the Stash image ID. Else, it is the
   // URL.
   const src =
     typeof hovercard_image === "number"
-      ? "/image/" + hovercard_image + "/image"
+      ? "/image/" + hovercard_image + imgType
       : hovercard_image;
 
   return (
