@@ -5,12 +5,41 @@ import {
 } from "@pluginTypes/hovercards";
 import "./Image.scss";
 
+const { GQL } = window.PluginApi;
+
 const Image: React.FC<IPerformerCardPropsExtended> = ({
   performer,
   ...props
 }) => {
-  const { hovercard_image, hovercard_video } =
+  const { hovercard_gallery, hovercard_image, hovercard_video } =
     performer.custom_fields as IPerformerCustomFields;
+
+  // Get an image from the gallery
+  let hoverGalleryImageID;
+  if (!!hovercard_gallery) {
+    const query = GQL.useFindImagesQuery({
+      variables: {
+        filter: { per_page: 1, sort: "random" },
+        image_filter: {
+          galleries: {
+            value: [hovercard_gallery.toString()],
+            modifier: CriterionModifier.Includes,
+          },
+        },
+      },
+    });
+
+    if (query.data?.findImages.images.length) {
+      hoverGalleryImageID = query.data.findImages.images[0].id;
+    }
+  }
+
+  const hoverGallery = hoverGalleryImageID ? (
+    <HoverImage
+      hovercard_image={hoverGalleryImageID}
+      preferOriginalImage={props.config?.preferOriginalImage ?? false}
+    />
+  ) : null;
 
   const hoverImage = hovercard_image ? (
     <HoverImage
@@ -35,7 +64,7 @@ const Image: React.FC<IPerformerCardPropsExtended> = ({
         alt={performer.name ?? ""}
         src={performer.image_path ?? ""}
       />
-      {hoverVideo ?? hoverImage}
+      {hoverVideo ?? hoverGallery ?? hoverImage}
     </div>
   );
 };
