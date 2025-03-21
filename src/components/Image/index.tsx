@@ -3,11 +3,10 @@ import {
   IPerformerCardPropsExtended,
   IPerformerCustomFields,
 } from "@/pluginTypes/hovercards";
+import HoverGallery from "../HoverGallery";
 import HoverImage from "../HoverImage";
 import HoverVideo from "../HoverVideo";
 import "./Image.scss";
-
-const { GQL } = window.PluginApi;
 
 const Image: React.FC<IPerformerCardPropsExtended> = ({
   performer,
@@ -16,29 +15,9 @@ const Image: React.FC<IPerformerCardPropsExtended> = ({
   const { hovercard_gallery, hovercard_image, hovercard_video } =
     performer.custom_fields as IPerformerCustomFields;
 
-  // Get an image from the gallery
-  let hoverGalleryImageID;
-  if (!!hovercard_gallery) {
-    const query = GQL.useFindImagesQuery({
-      variables: {
-        filter: { per_page: 1, sort: "random" },
-        image_filter: {
-          galleries: {
-            value: [hovercard_gallery.toString()],
-            modifier: CriterionModifier.Includes,
-          },
-        },
-      },
-    });
-
-    if (query.data?.findImages.images.length) {
-      hoverGalleryImageID = query.data.findImages.images[0].id;
-    }
-  }
-
-  const hoverGallery = hoverGalleryImageID ? (
-    <HoverImage
-      hovercard_image={hoverGalleryImageID}
+  const hoverGallery = hovercard_gallery ? (
+    <HoverGallery
+      hovercard_gallery={hovercard_gallery}
       preferOriginalImage={props.config?.preferOriginalImage ?? false}
     />
   ) : null;
