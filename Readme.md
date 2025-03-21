@@ -55,6 +55,18 @@ Save your changes at the bottom of the page (you may need to click out of the in
 
 As with using Stash images, you can set a comma-separated list of URLs here and one will be chosen at random to be displayed on hover. However, any URL that has a comma in it will break.
 
+## Hover galleries
+
+To add a hover gallery to a performer, navigate to the performer's page and click "Edit". Scroll down to "Custom Fields" near the bottom of the page and click it to start adding fields.
+
+Add a field with the name `hovercard_gallery`. In the value field, add a comma-separated list of Stash IDs of the galleries you want to use choose an image from. The gallery ID can be found by navigating to the gallery in Stash and taking the number after `galleries/`; for example, for an image at http://localhost:9999/galleries/69 the Stash ID would be 69.
+
+![image](https://github.com/user-attachments/assets/1c888987-fd19-4bfa-8267-42f81b2376ab)
+
+Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display a random image from one of the chosen galleries when you hover over it. Images change on page refresh, not on each hover.
+
+External galleries are not currently supported.
+
 ## Hover videos
 
 To add a hover video to a performer, navigate to the performer's page and click "Edit". Scroll down to "Custom Fields" near the bottom of the page and click it to start adding fields.
