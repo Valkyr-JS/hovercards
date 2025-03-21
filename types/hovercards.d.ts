@@ -12,16 +12,16 @@ interface IhovercardsConfig {
 }
 
 interface IPerformerCustomFields {
-  /** Either the Stash ID number or the URL string for the hover image. */
+  /** Either the Stash ID number or the URL string for the hover image, or a
+   * comma-separated string of either. */
   hovercard_image?: string | number;
-  /** Either the Stash ID number or the URL string for the hover video. */
+  /** Either the Stash ID number or the URL string for the hover video, or a
+   * comma-separated string of either. */
   hovercard_video?: string | number;
 }
 
 interface IPerformerCardPropsExtended extends IPerformerCardProps {
   config?: IhovercardsConfig;
-  performer: Performer & {
-    custom_fields: IPerformerCustomFields;
-  };
+  performer: Performer;
   stashSettings: ConfigResult;
 }

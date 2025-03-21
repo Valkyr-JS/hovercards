@@ -1,12 +1,16 @@
 import React, { useEffect, useRef } from "react";
-import { IPerformerCardPropsExtended } from "@pluginTypes/hovercards";
+import {
+  IPerformerCardPropsExtended,
+  IPerformerCustomFields,
+} from "@pluginTypes/hovercards";
 import "./Image.scss";
 
 const Image: React.FC<IPerformerCardPropsExtended> = ({
   performer,
   ...props
 }) => {
-  const { hovercard_image, hovercard_video } = performer.custom_fields;
+  const { hovercard_image, hovercard_video } =
+    performer.custom_fields as IPerformerCustomFields;
 
   const hoverImage = hovercard_image ? (
     <HoverImage
@@ -43,19 +47,15 @@ interface IHoverImageProps {
   preferOriginalImage: boolean;
 }
 
-const HoverImage: React.FC<IHoverImageProps> = ({
-  hovercard_image,
-  ...props
-}) => {
+const HoverImage: React.FC<IHoverImageProps> = (props) => {
   // Check if the user has set to use the original image instead of the preview.
   const imgType = props.preferOriginalImage ? "/image" : "/thumbnail";
 
-  // If the hover value is a number, it is the Stash image ID. Else, it is the
-  // URL.
-  const src =
-    typeof hovercard_image === "number"
-      ? "/image/" + hovercard_image + imgType
-      : hovercard_image;
+  // Choose a random source from the list
+  const value = getSourceValueFromList(props.hovercard_image);
+
+  // If the value is a number, it is the Stash image ID. Else, it is the URL.
+  const src = typeof value === "number" ? "/image/" + value + imgType : value;
 
   return (
     <img
@@ -72,11 +72,7 @@ interface IHoverVideoProps {
   soundActive: boolean;
 }
 
-const HoverVideo: React.FC<IHoverVideoProps> = ({
-  hovercard_video,
-  soundActive,
-  ...props
-}) => {
+const HoverVideo: React.FC<IHoverVideoProps> = ({ soundActive, ...props }) => {
   const videoEl = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -88,12 +84,12 @@ const HoverVideo: React.FC<IHoverVideoProps> = ({
   // preview.
   const vidType = props.preferFullVideos ? "/stream" : "/preview";
 
+  // Choose a random source from the list
+  const value = getSourceValueFromList(props.hovercard_video);
+
   // If the hover value is a number, it is the Stash image ID. Else, it is the
   // URL.
-  const src =
-    typeof hovercard_video === "number"
-      ? "/scene/" + hovercard_video + vidType
-      : hovercard_video;
+  const src = typeof value === "number" ? "/scene/" + value + vidType : value;
 
   const mouseOverHandler: React.MouseEventHandler<HTMLVideoElement> = (e) =>
     (e.target as HTMLVideoElement).play();
@@ -116,3 +112,19 @@ const HoverVideo: React.FC<IHoverVideoProps> = ({
     />
   );
 };
+
+/** Get a random string/number value from a potential comma-separated string list or
+ * single number. */
+function getSourceValueFromList(sources: string | number): string | number {
+  // Convert the sources into a list
+  const values =
+    typeof sources === "string"
+      ? sources.split(",").map((v) => (isNaN(+v) ? v : +v))
+      : [sources];
+
+  // Choose a random source from the list
+  const value = values[Math.floor(Math.random() * values.length)];
+  const trimmed = typeof value === "string" ? value.trim() : value;
+
+  return trimmed;
+}
