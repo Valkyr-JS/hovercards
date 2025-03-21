@@ -1,7 +1,7 @@
 import React from "react";
 import { default as cx } from "classnames";
-import PerformerCardImage from "@components/Image";
-import { IPerformerCardPropsExtended } from "@pluginTypes/hovercards";
+import PerformerCardImage from "@/components/Image";
+import { IPerformerCardPropsExtended } from "@/pluginTypes/hovercards";
 import "./styles.scss";
 
 const { PluginApi } = window;

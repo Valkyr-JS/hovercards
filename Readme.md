@@ -37,11 +37,11 @@ Add a field with the name `hovercard_image`. The contents of the value field dep
 
 ### Stash images
 
-To add an image that is in your Stash library, add the Stash ID of the image you want to use in the `hovercard_image` value field. The image ID can be found by navigating to the image in Stash and taking the number after `images/`; for example, for an image at http://localhost:9999/images/3 the Stash ID would be 3.
+To add an image that is in your Stash library, add a comma-separated list of Stash IDs of the images you want to use in the `hovercard_image` value field. The image ID can be found by navigating to the image in Stash and taking the number after `images/`; for example, for an image at http://localhost:9999/images/3 the Stash ID would be 3.
 
-![image](https://github.com/user-attachments/assets/9f07f7fb-bf42-42c7-a9a3-4110deb5370e)
+![image](https://github.com/user-attachments/assets/dae448f9-206d-450b-ad3d-35a71712228b)
 
-Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display your chosen image when you hover over it.
+Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display a random one of the chosen images when you hover over it. Images change on page refresh, not on each hover.
 
 The Stash ID of the image will always be a number. Any value that is not a number is treated as an external image.
 
@@ -53,6 +53,20 @@ To add an image from outside of your library, such as from a different website, 
 
 Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display your chosen image when you hover over it.
 
+As with using Stash images, you can set a comma-separated list of URLs here and one will be chosen at random to be displayed on hover. However, any URL that has a comma in it will break.
+
+## Hover galleries
+
+To add a hover gallery to a performer, navigate to the performer's page and click "Edit". Scroll down to "Custom Fields" near the bottom of the page and click it to start adding fields.
+
+Add a field with the name `hovercard_gallery`. In the value field, add a comma-separated list of Stash IDs of the galleries you want to use choose an image from. The gallery ID can be found by navigating to the gallery in Stash and taking the number after `galleries/`; for example, for an image at http://localhost:9999/galleries/69 the Stash ID would be 69.
+
+![image](https://github.com/user-attachments/assets/1c888987-fd19-4bfa-8267-42f81b2376ab)
+
+Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display a random image from one of the chosen galleries when you hover over it. Images change on page refresh, not on each hover.
+
+External galleries are not currently supported.
+
 ## Hover videos
 
 To add a hover video to a performer, navigate to the performer's page and click "Edit". Scroll down to "Custom Fields" near the bottom of the page and click it to start adding fields.
@@ -61,11 +75,11 @@ Add a field with the name `hovercard_video`. The contents of the value field dep
 
 ### Stash scene previews
 
-To add the preview video of a scene that is in your Stash library, add the Stash ID of the scene you want to use in the `hovercard_video` value field. The scene ID can be found by navigating to the scene in Stash and taking the number after `scenes/`; for example, for a scene at http://localhost:9999/scenes/5 the Stash ID would be 5.
+To add the preview video of a scene that is in your Stash library, add a comma-separated list of Stash IDs of the scenes you want to use in the `hovercard_video` value field. The scene ID can be found by navigating to the scene in Stash and taking the number after `scenes/`; for example, for a scene at http://localhost:9999/scenes/5 the Stash ID would be 5.
 
-![image](https://github.com/user-attachments/assets/8a705596-cc98-4c47-a689-f9c3ce20fcc4)
+![image](https://github.com/user-attachments/assets/e1c65ae6-751e-4a9f-b953-e3ba8c6cb3a1)
 
-Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display your chosen scene preview when you hover over it.
+Save your changes at the bottom of the page (you may need to click out of the input field first). Your performer should now display a random one of the chosen scene previews when you hover over it.
 
 The Stash ID of the scene will always be a number. Any value that is not a number is treated as a local file path.
 
@@ -87,6 +101,8 @@ Once you have the URL, remove the domain name to get the absolute path. This can
 
 ![image](https://github.com/user-attachments/assets/12acdb84-456f-49e3-9495-a8afdb0c7a7a)
 
+As with using Stash scenes, you can set a comma-separated list of URLs here and one will be chosen at random to be displayed on hover.
+
 ### Local video files - bare metal install (untested)
 
 To add a local video file, simply add the full path of the video file as the field value.
@@ -94,6 +110,8 @@ To add a local video file, simply add the full path of the video file as the fie
 ![image](https://github.com/user-attachments/assets/aae32f03-4393-4195-9a5e-6e4fdb6836fe)
 
 This method is currently untested - [please raise an issue on GitHub if it doesn't work](https://github.com/Valkyr-JS/hovercards/issues).
+
+As with using Stash scenes, you can set a comma-separated list of paths here and one will be chosen at random to be displayed on hover. However, any path that has a comma in it will break.
 
 ### Local video files - Docker
 
@@ -105,6 +123,10 @@ Take the path to the file from the `previews` folder, and add `/plugin/hovercard
 
 ![image](https://github.com/user-attachments/assets/dbb51e7c-25a2-4e87-87c1-14e476dcaa80)
 
+As with using Stash scenes, you can set a comma-separated list of paths here and one will be chosen at random to be displayed on hover. However, any path that has a comma in it will break.
+
 ### Externally hosted videos
 
 Technically, these should be supported. The plugin will attempt to find any path entered into the field value. However I regularly ran into CORS issues. If you have any suggestions, feel free to contact me on the [Stash Discord plugins channel](https://discord.com/channels/559159668438728723/742220889017417738) or [raise an issue on GitHub](https://github.com/Valkyr-JS/hovercards/issues).
+
+As with using Stash scenes, you can set a comma-separated list of URLs here and one will be chosen at random to be displayed on hover. However, any URLs that has a comma in it will break.
