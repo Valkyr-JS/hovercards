@@ -33,3 +33,19 @@ PluginApi.patch.instead("PerformerCard.Image", function (props, _, Original) {
   // Return the original component until config request has loaded.
   return [<Original {...props} />];
 });
+
+// Patch the navbar buttons, adding a toggle to the left-hand side in on the
+// performers grid page.
+PluginApi.patch.instead(
+  "MainNavBar.UtilityItems",
+  function (props, _, Original) {
+    return [
+      <Original {...props}>
+        <button type="button" onClick={() => console.log("toggle")}>
+          Card toggle
+        </button>
+        {props.children}
+      </Original>,
+    ];
+  }
+);

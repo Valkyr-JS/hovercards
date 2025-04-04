@@ -7,6 +7,7 @@ import * as FontAwesomeSolid from "@fortawesome/free-solid-svg-icons";
 import type { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type ReactRouterDOM from "@types/react-router-dom";
 import Mousetrap from "mousetrap";
+import type { PropsWithChildren } from "react";
 import * as ReactIntl from "react-intl";
 
 declare global {
@@ -126,6 +127,14 @@ interface PatchableComponentsBefore {
 }
 
 interface PatchableComponentsInstead {
+  (
+    component: "MainNavBar.UtilityItems",
+    fn: (
+      props: React.PropsWithChildren,
+      _: object,
+      Original: React.JSX
+    ) => React.JSX.Element[]
+  ): void;
   (
     component: "PerformerCard",
     fn: (
