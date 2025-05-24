@@ -1,8 +1,9 @@
-import React from "react";
+import React, { JSXElementConstructor, useState } from "react";
 import { default as cx } from "classnames";
 import PerformerCardImage from "@/components/Image";
 import { IPerformerCardPropsExtended } from "@/pluginTypes/hovercards";
 import "./styles.scss";
+import { IBooleanSetting } from "@/pluginTypes/stashPlugin";
 
 const { PluginApi } = window;
 
@@ -36,16 +37,45 @@ PluginApi.patch.instead("PerformerCard.Image", function (props, _, Original) {
 
 // Patch the navbar buttons, adding a toggle to the left-hand side in on the
 // performers grid page.
-PluginApi.patch.instead(
-  "MainNavBar.UtilityItems",
-  function (props, _, Original) {
-    return [
-      <Original {...props}>
-        <button type="button" onClick={() => console.log("toggle")}>
-          Card toggle
-        </button>
-        {props.children}
-      </Original>,
-    ];
-  }
-);
+PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
+  const [isActive, setActive] = useState(false);
+  const [componentsReady, setComponentsReady] = React.useState(false);
+
+  /** Click event handler for the boolean setting. */
+  const handleToggle: React.MouseEventHandler = () => {
+    setActive(!isActive);
+  };
+
+  /** Change event handler for the boolean setting. This is a required prop,
+   * however this didn't seem to update the checked state of the toggle. Click
+   * handler used instead. */
+  const handleChange = (v: boolean) =>
+    console.log("View all hovercards " + (v ? "on" : "off"));
+
+  // ? Short-term workaround for the above bug. Use a timeout to wait for the
+  // PluginApi to fully load before continuing.
+  const interval = setInterval(() => {
+    if (!!window.PluginApi.components.BooleanSetting) {
+      setComponentsReady(true);
+      clearInterval(interval);
+    }
+  }, 100);
+
+  if (!componentsReady) return [<>{props.children}</>];
+
+  //@ts-ignore
+  const BooleanSetting = window.PluginApi.components
+    .BooleanSetting as JSXElementConstructor<IBooleanSetting>;
+
+  return [
+    <>
+      <BooleanSetting
+        id="hovercards-toggle"
+        checked={isActive}
+        onClick={handleToggle}
+        onChange={handleChange}
+      />
+      {props.children}
+    </>,
+  ];
+});

@@ -94,6 +94,7 @@ interface IPluginApi {
 /* -------------------------------------------------------------------------- */
 
 interface StashPluginComponents {
+  BooleanSetting?: (props: IBooleanSetting) => React.JSX.Element;
   HoverPopover: (props: IHoverPopover) => React.JSX.Element;
   Icon: (props: IIcon) => FontAwesomeIcon;
   "PerformerDetailsPanel.DetailGroup": (
@@ -113,6 +114,10 @@ interface PatchableComponents {
 }
 
 interface PatchableComponentsAfter {
+  (
+    component: "MainNavBar.UtilityItems",
+    fn: (props: React.PropsWithChildren) => React.JSX.Element[]
+  ): void;
   (
     component: "PerformerDetailsPanel.DetailGroup",
     fn: (props: IPerformerDetailsPanelDetailGroup) => React.JSX.Element[]
@@ -276,4 +281,23 @@ interface IIcon {
   className?: string;
   color?: string;
   size?: SizeProp;
+}
+
+interface ISetting {
+  id?: string;
+  advanced?: boolean;
+  className?: string;
+  heading?: React.ReactNode;
+  headingID?: string;
+  subHeadingID?: string;
+  subHeading?: React.ReactNode;
+  tooltipID?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  disabled?: boolean;
+}
+
+interface IBooleanSetting extends ISetting {
+  id: string;
+  checked?: boolean;
+  onChange: (v: boolean) => void;
 }
