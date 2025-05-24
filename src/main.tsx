@@ -5,6 +5,7 @@ import { IPerformerCardPropsExtended } from "@/pluginTypes/hovercards";
 import "./styles.scss";
 import { IBooleanSetting } from "@/pluginTypes/stashPlugin";
 import { usePluginComponent } from "@/hooks";
+import { useLocation } from "react-router-dom";
 
 const { PluginApi } = window;
 
@@ -41,6 +42,7 @@ PluginApi.patch.instead("PerformerCard.Image", function (props, _, Original) {
 PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
   const [isActive, setActive] = useState(false);
   const componentsReady = usePluginComponent("BooleanSetting");
+  const location = useLocation();
 
   /** Click event handler for the boolean setting. */
   const handleToggle: React.MouseEventHandler = () => {
@@ -60,11 +62,11 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
     // TODO - Update config
   };
 
-  // ? Short-term workaround for the above bug. Use a timeout to wait for the
-  // PluginApi to fully load before continuing.
-
-  // TODO - Add check to also return the original if not on the "performers" page.
-  if (!componentsReady) return [<>{props.children}</>];
+  // ? Short-term workaround for the above bug. Ensure the use is currently on
+  // the performers page, and use a timeout to wait for the PluginApi to fully
+  // load before continuing.
+  if (!componentsReady || location.pathname !== "/performers")
+    return [<>{props.children}</>];
 
   const BooleanSetting = window.PluginApi.components
     .BooleanSetting as JSXElementConstructor<IBooleanSetting>;
