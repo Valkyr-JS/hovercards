@@ -4,6 +4,7 @@ import PerformerCardImage from "@/components/Image";
 import { IPerformerCardPropsExtended } from "@/pluginTypes/hovercards";
 import "./styles.scss";
 import { IBooleanSetting } from "@/pluginTypes/stashPlugin";
+import { usePluginComponent } from "@/hooks";
 
 const { PluginApi } = window;
 
@@ -39,7 +40,7 @@ PluginApi.patch.instead("PerformerCard.Image", function (props, _, Original) {
 // performers grid page.
 PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
   const [isActive, setActive] = useState(false);
-  const [componentsReady, setComponentsReady] = React.useState(false);
+  const componentsReady = usePluginComponent("BooleanSetting");
 
   /** Click event handler for the boolean setting. */
   const handleToggle: React.MouseEventHandler = () => {
@@ -61,12 +62,6 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
 
   // ? Short-term workaround for the above bug. Use a timeout to wait for the
   // PluginApi to fully load before continuing.
-  const interval = setInterval(() => {
-    if (!!window.PluginApi.components.BooleanSetting) {
-      setComponentsReady(true);
-      clearInterval(interval);
-    }
-  }, 100);
 
   // TODO - Add check to also return the original if not on the "performers" page.
   if (!componentsReady) return [<>{props.children}</>];
