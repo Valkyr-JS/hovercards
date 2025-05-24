@@ -9,6 +9,8 @@ interface IhovercardsConfig {
   /** By default, setting a Stash image ID uses the Stash-generated image
    * thumbnail. Enabling this option uses the original image instead. */
   preferOriginalImage?: boolean;
+  /** Enabling this option adds a toggle button to the navigation bar which will display hover content for all performer cards on the current page. */
+  showToggle?: boolean;
 }
 
 interface IPerformerCustomFields {
@@ -28,3 +30,6 @@ interface IPerformerCardPropsExtended extends IPerformerCardProps {
   performer: Performer;
   stashSettings: ConfigResult;
 }
+
+// TODO - Add config options:
+// 2. Remember toggle setting.

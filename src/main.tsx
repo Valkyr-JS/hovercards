@@ -5,7 +5,6 @@ import { IPerformerCardPropsExtended } from "@/pluginTypes/hovercards";
 import "./styles.scss";
 import { IBooleanSetting } from "@/pluginTypes/stashPlugin";
 import { usePluginComponent } from "@/hooks";
-import { useLocation } from "react-router-dom";
 
 const { PluginApi } = window;
 
@@ -42,7 +41,23 @@ PluginApi.patch.instead("PerformerCard.Image", function (props, _, Original) {
 PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
   const [isActive, setActive] = useState(false);
   const componentsReady = usePluginComponent("BooleanSetting");
-  const location = useLocation();
+  const qConfig = PluginApi.GQL.useConfigurationQuery();
+
+  /**
+   * To display the toggle button, ensure:
+   * 1. The user config is loaded AND
+   * 2. The user has enabled the button AND
+   * 3. The required plugin component is ready for use.
+   */
+  if (
+    qConfig.loading ||
+    !qConfig.data.configuration.plugins.hovercards.showToggle ||
+    !componentsReady
+  )
+    return [<>{props.children}</>];
+
+  const BooleanSetting = window.PluginApi.components
+    .BooleanSetting as JSXElementConstructor<IBooleanSetting>;
 
   /** Click event handler for the boolean setting. */
   const handleToggle: React.MouseEventHandler = () => {
@@ -61,15 +76,6 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
 
     // TODO - Update config
   };
-
-  // ? Short-term workaround for the above bug. Ensure the use is currently on
-  // the performers page, and use a timeout to wait for the PluginApi to fully
-  // load before continuing.
-  if (!componentsReady || location.pathname !== "/performers")
-    return [<>{props.children}</>];
-
-  const BooleanSetting = window.PluginApi.components
-    .BooleanSetting as JSXElementConstructor<IBooleanSetting>;
 
   return [
     <>
