@@ -30,6 +30,3 @@ interface IPerformerCardPropsExtended extends IPerformerCardProps {
   performer: Performer;
   stashSettings: ConfigResult;
 }
-
-// TODO - Add config options:
-// 2. Remember toggle setting.

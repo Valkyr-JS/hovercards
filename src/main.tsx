@@ -64,8 +64,6 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
     setActive(!isActive);
   };
 
-  // TODO - Add class on load if config is set to use it
-
   /** Change event handler for the boolean setting. This is a required prop,
    * however this didn't seem to update the checked state of the toggle. Click
    * handler used instead. */
@@ -73,8 +71,6 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
     document.body.classList[v ? "add" : "remove"](
       "valkyr-hover-card__show-all"
     );
-
-    // TODO - Update config
   };
 
   return [
