@@ -1,1 +1,1 @@
-export { default as usePluginComponent } from "./useBooleanSetting";
+export { default as usePluginComponent } from "./usePluginComponent";
