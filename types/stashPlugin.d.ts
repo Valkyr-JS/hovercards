@@ -301,3 +301,7 @@ interface IBooleanSetting extends ISetting {
   checked?: boolean;
   onChange: (v: boolean) => void;
 }
+
+// TODO - Add config options:
+// 1. Show toggle button
+// 2. Remember toggle setting.

@@ -46,14 +46,17 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
     setActive(!isActive);
   };
 
+  // TODO - Add class on load if config is set to use it
+
   /** Change event handler for the boolean setting. This is a required prop,
    * however this didn't seem to update the checked state of the toggle. Click
    * handler used instead. */
   const handleChange = (v: boolean) => {
-    console.log("View all hovercards " + (v ? "on" : "off"));
     document.body.classList[v ? "add" : "remove"](
       "valkyr-hover-card__show-all"
     );
+
+    // TODO - Update config
   };
 
   // ? Short-term workaround for the above bug. Use a timeout to wait for the
@@ -65,9 +68,9 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
     }
   }, 100);
 
+  // TODO - Add check to also return the original if not on the "performers" page.
   if (!componentsReady) return [<>{props.children}</>];
 
-  //@ts-ignore
   const BooleanSetting = window.PluginApi.components
     .BooleanSetting as JSXElementConstructor<IBooleanSetting>;
 
