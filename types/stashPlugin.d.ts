@@ -7,6 +7,7 @@ import * as FontAwesomeSolid from "@fortawesome/free-solid-svg-icons";
 import type { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type ReactRouterDOM from "@types/react-router-dom";
 import Mousetrap from "mousetrap";
+import type { PropsWithChildren } from "react";
 import * as ReactIntl from "react-intl";
 
 declare global {
@@ -93,6 +94,7 @@ interface IPluginApi {
 /* -------------------------------------------------------------------------- */
 
 interface StashPluginComponents {
+  BooleanSetting?: (props: IBooleanSetting) => React.JSX.Element;
   HoverPopover: (props: IHoverPopover) => React.JSX.Element;
   Icon: (props: IIcon) => FontAwesomeIcon;
   "PerformerDetailsPanel.DetailGroup": (
@@ -113,6 +115,10 @@ interface PatchableComponents {
 
 interface PatchableComponentsAfter {
   (
+    component: "MainNavBar.UtilityItems",
+    fn: (props: React.PropsWithChildren) => React.JSX.Element[]
+  ): void;
+  (
     component: "PerformerDetailsPanel.DetailGroup",
     fn: (props: IPerformerDetailsPanelDetailGroup) => React.JSX.Element[]
   ): void;
@@ -126,6 +132,14 @@ interface PatchableComponentsBefore {
 }
 
 interface PatchableComponentsInstead {
+  (
+    component: "MainNavBar.UtilityItems",
+    fn: (
+      props: React.PropsWithChildren,
+      _: object,
+      Original: React.JSX
+    ) => React.JSX.Element[]
+  ): void;
   (
     component: "PerformerCard",
     fn: (
@@ -267,4 +281,23 @@ interface IIcon {
   className?: string;
   color?: string;
   size?: SizeProp;
+}
+
+interface ISetting {
+  id?: string;
+  advanced?: boolean;
+  className?: string;
+  heading?: React.ReactNode;
+  headingID?: string;
+  subHeadingID?: string;
+  subHeading?: React.ReactNode;
+  tooltipID?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  disabled?: boolean;
+}
+
+interface IBooleanSetting extends ISetting {
+  id: string;
+  checked?: boolean;
+  onChange: (v: boolean) => void;
 }
