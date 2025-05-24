@@ -49,8 +49,12 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
   /** Change event handler for the boolean setting. This is a required prop,
    * however this didn't seem to update the checked state of the toggle. Click
    * handler used instead. */
-  const handleChange = (v: boolean) =>
+  const handleChange = (v: boolean) => {
     console.log("View all hovercards " + (v ? "on" : "off"));
+    document.body.classList[v ? "add" : "remove"](
+      "valkyr-hover-card__show-all"
+    );
+  };
 
   // ? Short-term workaround for the above bug. Use a timeout to wait for the
   // PluginApi to fully load before continuing.

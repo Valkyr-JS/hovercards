@@ -1,6 +1,6 @@
 .valkyr-hover-card {
   position: relative;
-  
+
   .image-wrapper {
     display: grid;
     grid-template-columns: [start] auto [end];
@@ -32,5 +32,12 @@
     object-fit: cover;
     object-position: top;
     width: 100%;
+  }
+}
+
+.valkyr-hover-card__show-all .valkyr-hover-card {
+  .hover-image,
+  .hover-video {
+    opacity: 100%;
   }
 }
