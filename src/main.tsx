@@ -48,7 +48,7 @@ PluginApi.patch.after("MainNavBar.UtilityItems", function (props) {
    */
   if (
     qConfig.loading ||
-    !qConfig.data.configuration.plugins.hovercards.showToggle
+    !qConfig.data.configuration.plugins?.hovercards?.showToggle
   )
     return [<>{props.children}</>];
 
